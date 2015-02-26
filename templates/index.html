@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Simple Home Automation</title>
+    <meta name="apple-mobile-web-app-status-bar-style">
+    <title>{{ config.TITLE }}</title>
+    <link href="static/img/icon.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="static/css/framework7.min.css">
     <link rel="stylesheet" href="static/css/ionicons.min.css">
     <link rel="stylesheet" href="static/css/custom.css">
@@ -19,7 +20,7 @@
         <!-- Top Navbar-->
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="center sliding">Home Control</div>
+            <div class="center sliding">{{ config.TITLE }}</div>
           </div>
         </div>
         <div class="pages navbar-through toolbar-through">
@@ -110,7 +111,7 @@
         <div class="view">
           <div class="page">
             <div class="page-content login-screen-content">
-              <div class="login-screen-title">Home Control</div>
+              <div class="login-screen-title">{{ config.TITLE }}</div>
               <form id="login-form" action="login" method="POST" class="ajax-submit">
                 <div class="list-block">
                   <ul>

@@ -1,6 +1,9 @@
+# General
+TITLE = "Home Control"
+
 # Security config
 PASSWORD = "1234"
-SECRET = "e03112b3005d969f7623b240ef9d38"
+SECRET = "81dc9bdb52d04dc20036dbd8313ed055"
 
 # Server config
 HOST = "0.0.0.0"

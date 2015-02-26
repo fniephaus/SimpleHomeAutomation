@@ -48,18 +48,9 @@ def main():
 def login():
     if 'password' in request.form:
         if request.form['password'] == config.PASSWORD:
-            response = jsonify({
+            return signed_response(jsonify({
                 'status': True
-            })
-            # Add cookie
-            expires = time.mktime((datetime.date.today() +
-                                   datetime.timedelta(days=7)).timetuple())
-            response.set_cookie(
-                config.COOKIE,
-                value=str(current_secret()),
-                expires=expires
-            )
-            return response
+            }))
 
     return jsonify({
         'status': False
@@ -79,9 +70,9 @@ def control():
         switch = ('switch-%s-%s' % (system, device))
 
         if 'state' in request.form:
-        	state = request.form['state']
+            state = request.form['state']
         else:
-        	state = '0' if switch in active_switches else '1'
+            state = '0' if switch in active_switches else '1'
 
         # Send command if available
         if rfm12pi:
@@ -93,13 +84,13 @@ def control():
         else:
             active_switches.discard(switch)
 
-        return jsonify({
+        return signed_response(jsonify({
             'status': True
-        })
+        }))
 
-    return jsonify({
+    return signed_response(jsonify({
         'status': False
-    })
+    }))
 
 
 @app.route('/status')
@@ -107,6 +98,18 @@ def status():
     return jsonify({
         'switches': list(active_switches) if logged_in(request) else []
     })
+
+
+def signed_response(response):
+        # Add cookie
+    expires = time.mktime((datetime.date.today() +
+                           datetime.timedelta(days=7)).timetuple())
+    response.set_cookie(
+        config.COOKIE,
+        value=str(current_secret()),
+        expires=expires
+    )
+    return request
 
 
 def logged_in(request):
