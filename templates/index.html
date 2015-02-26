@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Simple Home Automation</title>
+    <link rel="stylesheet" href="static/css/framework7.min.css">
+    <link rel="stylesheet" href="static/css/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/custom.css">
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- View -->
+    <div class="views">
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center sliding">Home Control</div>
+          </div>
+        </div>
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, data-page contains page name-->
+          <div data-page="control" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content pull-to-refresh-content">
+              <!-- Default pull to refresh layer-->
+              <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+              </div>
+
+              <div class="content-block-title">Remote Switches</div>
+              <div class="list-block">
+                <ul>
+                  {% for switch in config.SWITCHES %}
+                  {% set switch_id = 'switch-%s-%s' % (switch.system, switch.device) %}
+                  {% set switch_state = 'checked' if switch_id in active_switches else '' %}
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon {{ switch.icon if switch.icon else 'ion-toggle' }}"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">{{ switch.name }}</div>
+                        <div class="item-input">
+                          <label class="switch label-switch pull-right">
+                            <input type="checkbox" id="{{ switch_id }}" data-system="{{ switch.system }}" data-device="{{ switch.device }}" {{ switch_state }}/>
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% if config.ENABLE_CUSTOM_CODES %}
+              <div class="content-block-title">Send Custom Code</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-code"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">System Code</div>
+                        <div class="item-input">
+                          <input type="text" id="custom-system" name="system" placeholder="16">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-code"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">Device Code</div>
+                        <div class="item-input">
+                          <input type="text" id="custom-device" name="device" placeholder="1">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-toggle"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title label">Turn on/off</div>
+                        <div class="item-input">
+                          <label class="label-switch">
+                            <input type="checkbox" id="custom-state" name="state">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <a id="custom-button" href="#" class="button">Send</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="login-screen{{ ' modal-in' if not logged_in }}">
+        <div class="view">
+          <div class="page">
+            <div class="page-content login-screen-content">
+              <div class="login-screen-title">Home Control</div>
+              <form id="login-form" action="login" method="POST" class="ajax-submit">
+                <div class="list-block">
+                  <ul>
+                    <li class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label">Password</div>
+                        <div class="item-input">
+                          <input type="password" name="password" placeholder="Your password">
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="list-block">
+                  <ul>
+                    <li><a id="login-button" href="#" class="item-link list-button">Sign In</a></li>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="static/js/framework7.min.js"></script>
+    <script type="text/javascript" src="static/js/custom.js"></script>
+  </body>
+</html>

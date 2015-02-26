@@ -1,0 +1,23 @@
+.pull-right {
+    float: right!important
+}
+
+.views {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.icon {
+    color: #444;
+    font-size: 22px;
+    width: 30px;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.login-spacer {
+    height: 20%;
+}
