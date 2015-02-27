@@ -2,8 +2,9 @@
 
 An inexpensive and lightweight home automation project.
 
-## Screencast
 ![Screencast](https://raw.githubusercontent.com/fniephaus/SimpleHomeAutomation/gh-pages/screencast.gif)
+
+Try it out on your own device: [http://fniephaus.github.io/SimpleHomeAutomation](http://fniephaus.github.io/SimpleHomeAutomation)
 
 ## Recommended Hardware
 
