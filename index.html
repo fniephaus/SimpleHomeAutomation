@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style">
-    <title>{{ config.TITLE }}</title>
+    <title>Home Control</title>
     <link href="static/img/icon.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="static/css/framework7.min.css">
     <link rel="stylesheet" href="static/css/ionicons.min.css">
@@ -20,7 +20,7 @@
         <!-- Top Navbar-->
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="center sliding">{{ config.TITLE }}</div>
+            <div class="center sliding">Home Control</div>
           </div>
         </div>
         <div class="pages navbar-through toolbar-through">
@@ -37,27 +37,64 @@
               <div class="content-block-title">Remote Switches</div>
               <div class="list-block">
                 <ul>
-                  {% for switch in config.SWITCHES %}
-                  {% set switch_id = 'switch-%s-%s' % (switch.system, switch.device) %}
-                  {% set switch_state = 'checked' if switch_id in active_switches else '' %}
                   <li>
                     <div class="item-content">
-                      <div class="item-media"><i class="icon {{ switch.icon if switch.icon else 'ion-toggle' }}"></i></div>
+                      <div class="item-media"><i class="icon ion-ios-lightbulb"></i></div>
                       <div class="item-inner"> 
-                        <div class="item-title label">{{ switch.name }}</div>
+                        <div class="item-title label">Switch 1</div>
                         <div class="item-input">
                           <label class="switch label-switch pull-right">
-                            <input type="checkbox" id="{{ switch_id }}" data-system="{{ switch.system }}" data-device="{{ switch.device }}" {{ switch_state }}/>
+                            <input type="checkbox" id="switch-1-1" data-system="1" data-device="1" />
                             <div class="checkbox"></div>
                           </label>
                         </div>
                       </div>
                     </div>
                   </li>
-                  {% endfor %}
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-home"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Switch 2</div>
+                        <div class="item-input">
+                          <label class="switch label-switch pull-right">
+                            <input type="checkbox" id="switch-2-2" data-system="2" data-device="2" />
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-xbox"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Switch 3</div>
+                        <div class="item-input">
+                          <label class="switch label-switch pull-right">
+                            <input type="checkbox" id="switch-3-3" data-system="3" data-device="3" />
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon ion-toggle"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Switch 4</div>
+                        <div class="item-input">
+                          <label class="switch label-switch pull-right">
+                            <input type="checkbox" id="switch-4-4" data-system="4" data-device="4" />
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
                 </ul>
               </div>
-              {% if config.ENABLE_CUSTOM_CODES %}
               <div class="content-block-title">Send Custom Code</div>
               <div class="list-block">
                 <ul>
@@ -102,16 +139,15 @@
               <div class="content-block">
                 <a id="custom-button" href="#" class="button">Send</a>
               </div>
-              {% endif %}
             </div>
           </div>
         </div>
       </div>
-      <div class="login-screen{{ ' modal-in' if not logged_in }}">
+      <div class="login-screen modal-in">
         <div class="view">
           <div class="page">
             <div class="page-content login-screen-content">
-              <div class="login-screen-title">{{ config.TITLE }}</div>
+              <div class="login-screen-title">Home Control</div>
               <form id="login-form" action="login" method="POST" class="ajax-submit">
                 <div class="list-block">
                   <ul>

@@ -10,37 +10,22 @@ var mainView = app.addView('.view-main', {
     domCache: true
 });
 
-// Handle login attempts
-$$('form.ajax-submit').on('submitted', function (e) {
-    var data = JSON.parse(e.detail.xhr.responseText);
-    if (data.status == true) {
-        app.closeModal('.login-screen')
-    } else {
-        app.addNotification({
-            title: 'Password incorrect',
-            message: 'Please try again...',
-            closeIcon: false,
-            hold: 1750
-        });
-    }
-});
-
 // Handle push to refresh
 var ptrContent = $$('.pull-to-refresh-content');
 ptrContent.on('refresh', function (e) {
-    $$.getJSON('status', function(data){
-            app.pullToRefreshDone();
-    });
+    setTimeout(function (e) {
+        app.pullToRefreshDone();
+    }, 2000);
 });
 
 // Click handler for login button
 $$('#login-button').on('click', function (e) {
-    $$('#login-form').trigger('submit');
+    app.closeModal('.login-screen');
 });
 
 // Click handler for custom button
 $$('#custom-button').on('click', function (e) {
-    $$.post('control', {
+    console.log({
         system: $$('#custom-system').val(),
         device: $$('#custom-device').val(),
         state: ($$('#custom-state').prop('checked') ? "1" : "0")
@@ -50,25 +35,9 @@ $$('#custom-button').on('click', function (e) {
 // Handle switch change
 $$('.switch').on('change', function (e) {
     var target = $$('input', this);
-    $$.post('control', {
+    console.log({
         system: target.data('system'),
         device: target.data('device'),
         state: (target.prop('checked') ? "1" : "0")
     });
 });
-
-// UI refresh
-function refresh() {
-    $$.getJSON('status', function(data){
-        $$('.switch input').prop('checked', false);
-        for (var i = data['switches'].length - 1; i >= 0; i--) {
-            var remote_switch = data['switches'][i];
-            $$('#' + remote_switch).prop('checked', true);
-        };
-    });
-}
-
-// Refresh UI periodically
-setInterval(function(){
-    refresh();
-}, 2500);
