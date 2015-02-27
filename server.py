@@ -101,7 +101,7 @@ def status():
 
 
 def signed_response(response):
-        # Add cookie
+    # Add cookie
     expires = time.mktime((datetime.date.today() +
                            datetime.timedelta(days=7)).timetuple())
     response.set_cookie(
@@ -109,7 +109,7 @@ def signed_response(response):
         value=str(current_secret()),
         expires=expires
     )
-    return request
+    return response
 
 
 def logged_in(request):
